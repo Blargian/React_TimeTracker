@@ -1,10 +1,28 @@
 import React from 'react';
-import moment from 'moment';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import {renderElapsedString} from '../helpers.js'
 
 class Timer extends React.Component {
-    render () {
     
-        const elapsedTime = moment(this.props.elapsed).format('HH:MM:SS')
+    handleDelete = () => {
+        this.props.onDeleteClick(
+            this.props.id
+    );
+    };
+
+    componentDidMount() {
+        this.forceUpdateInterval = setInterval(() => this.forceUpdate(),50);
+    }
+
+    componentWillUnmount(){
+        clearInterval(this.forceUpdateInterval);
+    }
+
+    render () {
+
+      
+        const elapsed = renderElapsedString(this.props.elapsed,this.props.runningSince)
 
         return (
             <div className = "timer">
@@ -17,21 +35,22 @@ class Timer extends React.Component {
                     </div>
                     <div className="center elapsedTime">
                         <h2>
-                            {elapsedTime}
+                            {elapsed}
                         </h2>
                     </div>
                     <div className = "extra content">
-                        <i className="trash icon"></i>
-                        <i className="edit icon"></i>
+                        <span onClick={this.props.onEditClick}><FontAwesomeIcon icon={faEdit} /></span>
+                        <span onClick={this.handleDelete}><FontAwesomeIcon icon={faTrash} /></span>
                     </div>
                 </div>
-                <div className = "button-blue center">
+                <button className = "button-blue center">
                     start
-                </div>
+                </button>
             </div> 
-    )
+    );
 
     }
+
 }
 
 export default Timer;

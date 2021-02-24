@@ -1,11 +1,31 @@
 .timer{
 
+    border: 0.1rem solid;
+    border-color: $light-grey;
+    border-radius: 0.5rem;
+    
+    .content{
+        padding: 1rem;
+
+        .meta{
+            color: $light-grey;
+        }
+    }
 }
 
-.content{
-    padding: 1rem;
-}
+
+
 .elapsedTime{
     color: $dark-grey;
     padding: 1rem 0rem;
+}
+
+.extra.content {
+    margin-bottom: 1rem;
+    padding: 1rem 0rem;
+
+    > * {
+        float: right;
+        margin-right:1rem;
+    }
 }

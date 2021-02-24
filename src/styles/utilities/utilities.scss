@@ -1,6 +1,8 @@
 $blue: #3588cd;
 $dark-grey: #575757;
 $light-grey: #9f9f9f;
+$red: #cd4838;
+$background-color: #ffffff;
 
 .center {
     text-align: center;
@@ -9,4 +11,21 @@ $light-grey: #9f9f9f;
 .button-blue {
     border: 0.1rem solid $blue;
     padding: 0.5rem;
+    width: 100%;
+    color: $blue;
+    background-color: $background-color;
+}
+
+.button-red {
+    border: 0.1rem solid $red;
+    padding: 0.5rem;
+    width: 100%;
+    color: $red;
+    background-color: $background-color;
+}
+
+.button-clear {
+    background-color: white;
+    border: none;
+    width: 100%;
 }
