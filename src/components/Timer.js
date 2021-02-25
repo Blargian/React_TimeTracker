@@ -1,7 +1,8 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
-import {renderElapsedString} from '../helpers.js'
+import {renderElapsedString} from '../helpers.js';
+import TimerActionButton from '../components/TimerActionButton';
 
 class Timer extends React.Component {
     
@@ -17,6 +18,14 @@ class Timer extends React.Component {
 
     componentWillUnmount(){
         clearInterval(this.forceUpdateInterval);
+    }
+
+    handleStartClick = () => {
+        this.props.onStartClick(this.props.id);
+    }
+
+    handleStopClick = () => {
+        this.props.onStopClick(this.props.id);
     }
 
     render () {
@@ -43,9 +52,11 @@ class Timer extends React.Component {
                         <span onClick={this.handleDelete}><FontAwesomeIcon icon={faTrash} /></span>
                     </div>
                 </div>
-                <button className = "button-blue center">
-                    start
-                </button>
+                <TimerActionButton
+                    timerIsRunning={!!this.props.runningSince}
+                    onStartClick={this.handleStartClick}
+                    onStopClick={this.handleStopClick}
+                />
             </div> 
     );
 

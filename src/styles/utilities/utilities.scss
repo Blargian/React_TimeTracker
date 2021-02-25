@@ -2,6 +2,7 @@ $blue: #3588cd;
 $dark-grey: #575757;
 $light-grey: #9f9f9f;
 $red: #cd4838;
+$green: #72a665;
 $background-color: #ffffff;
 
 .center {
@@ -14,6 +15,7 @@ $background-color: #ffffff;
     width: 100%;
     color: $blue;
     background-color: $background-color;
+    outline:none;
 }
 
 .button-red {
@@ -22,10 +24,21 @@ $background-color: #ffffff;
     width: 100%;
     color: $red;
     background-color: $background-color;
+    outline:none;
+}
+
+.button-green {
+    border: 0.1rem solid $green;
+    padding: 0.5rem;
+    width: 100%;
+    color: $green;
+    background-color: $background-color;
+    outline:none;
 }
 
 .button-clear {
     background-color: white;
     border: none;
     width: 100%;
+    outline:none;
 }
