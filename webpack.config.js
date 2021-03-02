@@ -4,7 +4,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = (env) => {
 
-    const isProduction = env === 'production';
+    const isProduction = env === 'development';
 
     return {
         entry: "/src/app.js",
@@ -41,7 +41,15 @@ module.exports = (env) => {
                             }
                         }
                     ],
-                }
+                },
+                {
+                    test: /\.(png|jpe?g|gif)$/i,
+                    use: [
+                      {
+                        loader: 'url-loader',
+                      },
+                    ],
+                  },
             ]
         },
         resolve: {extensions: ["*",".js",".jsx"]},
@@ -51,12 +59,11 @@ module.exports = (env) => {
             filename: "bundle.js"
         },
         devServer: {
-            contentBase: path.join(__dirname, "public"),
-            port: 3000,
-            publicPath: "/public",
-            hotOnly: true
-        },
+            contentBase: path.join(__dirname, 'public'),
+            historyApiFallback: true,
+            publicPath: '/public/'
+          },
         plugins: [new webpack.HotModuleReplacementPlugin(), new MiniCssExtractPlugin({filename: 'styles.css'})],
-        devtool: isProduction ? 'source-map' : 'eval-cheap-module-source-map'
+        devtool: isProduction ? 'source-map' : 'eval',
     }
 };

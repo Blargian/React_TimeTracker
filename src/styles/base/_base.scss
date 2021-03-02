@@ -1,16 +1,46 @@
-* {
+html {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
 }
 
-.container {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+html,body {
+    height: 100%;
 }
 
-.column {
+body{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Aligner {
     display: flex;
-    flex-direction: column;
+}
+  
+.Aligner-item {
+    min-width: 320px;
+}
+  
+.Aligner-item--top {
+align-self: flex-start;
+}
+  
+.Aligner-item--bottom {
+align-self: flex-end;
+}
+  
+.Aligner-item--fixed {
+flex: none;
+max-width: 50%;
+}
+
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+    /* Styles */
+    .Aligner {
+        display: block;
+        margin: 2rem;
+      }
 }

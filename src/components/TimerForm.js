@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 
 class TimerForm extends React.Component { 
 
@@ -34,7 +35,12 @@ class TimerForm extends React.Component {
     render () {
         const submitText = this.props.id ? 'Update' : 'Create';
         return(
-            <div className = "timer-form">
+            <motion.div 
+                className = "timer-form"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+            >
                 <div className = "content">
                     <div className = "ui form">
                         <div className = "field">
@@ -69,7 +75,7 @@ class TimerForm extends React.Component {
                         Cancel
                     </button>
                 </div>
-                </div>
+            </motion.div>
         );
     }
 }

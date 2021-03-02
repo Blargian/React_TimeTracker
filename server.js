@@ -11,7 +11,7 @@ const DATA_FILE = path.join(__dirname,'data.json');
 
 app.set('port',(process.env.PORT || 3000));
 
-app.use('/',express.static(path.join(__dirname,'/public')));
+app.use('/',express.static(path.join(__dirname,'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 

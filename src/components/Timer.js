@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import {renderElapsedString} from '../helpers.js';
 import TimerActionButton from '../components/TimerActionButton';
+import {motion} from 'framer-motion';
 
 class Timer extends React.Component {
     
@@ -34,7 +35,12 @@ class Timer extends React.Component {
         const elapsed = renderElapsedString(this.props.elapsed,this.props.runningSince)
 
         return (
-            <div className = "timer">
+            <motion.div 
+                className = "timer"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+            >
                 <div className="content">
                     <div className = "header">
                         <h3>{this.props.title}</h3>
@@ -57,7 +63,7 @@ class Timer extends React.Component {
                     onStartClick={this.handleStartClick}
                     onStopClick={this.handleStopClick}
                 />
-            </div> 
+            </motion.div> 
     );
 
     }

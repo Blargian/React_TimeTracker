@@ -6,30 +6,27 @@ import { v4 as uuidv4 } from 'uuid';
 class TimersDashboard extends React.Component {
 
     state = {
-        timers: [
-            {
-                title: 'Practise Squats',
-                project: 'Gym',
-                id: uuidv4(),
-                elapsed: 350000,
-                runningSince: null
-            },
-            {
-                title: 'Practise Situps',
-                project: 'Gym',
-                id: uuidv4(),
-                elapsed: 1000,
-                runningSince: null
-            }
-        ]
+        timers: []
+    };
+
+    componentDidMount() {
+        this.loadTimersFromServer();
+        setInterval(this.loadTimersFromServer,5000);
+    };
+
+    loadTimersFromServer = () => {
+        client.getTimers((serverTimers)=>{
+            this.setState({timers: serverTimers})
+        });
     };
 
     handleCreateFormSubmit = (timer) => {
 
+        const newID = uuidv4();
         const newTimer = {
             title: timer.title, 
             project: timer.project,
-            id: uuidv4(),
+            id: newID,
             elapsed: 0,
             runningSince: null,
         };
@@ -37,6 +34,12 @@ class TimersDashboard extends React.Component {
         this.setState({
             timers: [...this.state.timers, newTimer]
         });
+
+        client.createTimer({
+            id: newID,
+            project: timer.project,
+            title: timer.title
+        })
     }
 
     handleEditFormSubmit = (updates) => {
@@ -52,10 +55,16 @@ class TimersDashboard extends React.Component {
                         project: updates.project
                     })
                 } else {
-                    return timer
+                    return timer;
                 }
             })
-        })
+        });
+
+        client.updateTimer({
+            id: updates.id,
+            title: updates.title,
+            project: updates.project
+        });
     }
 
     handleDeleteFormSubmit = (idToDelete) => {
@@ -67,7 +76,12 @@ class TimersDashboard extends React.Component {
             timers: this.state.timers.filter((timer)=>{
                 return idToDelete !== timer.id
             })
-        })
+        });
+
+        client.deleteTimer({
+            id: idToDelete
+        });
+
     }
 
     handleStartClick = (timerId) => {
@@ -92,7 +106,11 @@ class TimersDashboard extends React.Component {
                 }
             }),
         });
-    }
+
+        client.startTimer(
+            {id: timerId, start: now}
+        );
+    };
 
     stopTimer = (timerId) => {
         
@@ -111,13 +129,17 @@ class TimersDashboard extends React.Component {
                 }
             }),
         });
-    }
+
+        client.stopTimer(
+            {id: timerId, stop: now}
+        );
+    };
 
     render() {
         return (
-            <div className='container'>
-                <div/>
-                <div className="column">
+            <div>
+                <div className="Aligner-item Aligner-item--top"></div>
+                <div className="Aligner-item">
                     <EditableTimerList 
                         onFormSubmit = {this.handleEditFormSubmit}
                         onFormDelete = {this.handleDeleteFormSubmit}
@@ -127,9 +149,10 @@ class TimersDashboard extends React.Component {
                     />
                     <ToggleableTimerForm
                         onFormSubmit = {this.handleCreateFormSubmit}
+                        timers={this.state.timers}
                     />
                 </div>
-                <div/>
+                <div className="Aligner-item Aligner-item--bottom"></div>
             </div>
         )
     }
